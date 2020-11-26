@@ -1,6 +1,6 @@
-package data.dao;
+package repository.dao;
 
-import data.entity.Customer;
+import repository.entity.Customer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

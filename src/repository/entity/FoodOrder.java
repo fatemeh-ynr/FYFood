@@ -1,4 +1,4 @@
-package data.entity;
+package repository.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -13,11 +13,11 @@ public class FoodOrder {
     private int orderCode;
     @ManyToOne
     private Customer customer;
+    @ManyToOne
+    private Restaurant restaurant;
     private int courierFee;
     private int totalAmountOfPayment;
     private LocalDate orderDate;
-    @ManyToOne
-    private Restaurant restaurant;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "orders_foodList", joinColumns = @JoinColumn(name = "orderCode"))

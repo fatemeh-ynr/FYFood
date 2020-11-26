@@ -1,6 +1,6 @@
-package data.dao;
+package repository.dao;
 
-import data.entity.Restaurant;
+import repository.entity.Restaurant;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -45,7 +45,7 @@ public class RestaurantDao {
             Criteria foodCriteria = restaurantCriteria.createCriteria("foodsList");
             foodCriteria.add(Restrictions.eq("type", type));
         }
-        restaurantCriteria.setResultTransformer(DistinctRootEntityResultTransformer.INSTANCE);
+        restaurantCriteria.setResultTransformer(DistinctRootEntityResultTransformer.INSTANCE);//Distinct
         List<Restaurant> restaurants = restaurantCriteria.list();
         return restaurants;
     }

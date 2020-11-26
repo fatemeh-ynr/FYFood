@@ -1,7 +1,7 @@
-package data.dao;
+package repository.dao;
 
-import data.entity.Food;
-import data.entity.Restaurant;
+import repository.entity.Food;
+import repository.entity.Restaurant;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

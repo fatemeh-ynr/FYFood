@@ -1,8 +1,8 @@
-package view;
+package controller;
 
-import data.entity.Customer;
-import data.entity.FoodOrder;
-import data.entity.Restaurant;
+import repository.entity.Customer;
+import repository.entity.FoodOrder;
+import repository.entity.Restaurant;
 import service.CustomerService;
 import service.FoodOrderService;
 import service.FoodService;

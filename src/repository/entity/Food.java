@@ -1,4 +1,4 @@
-package data.entity;
+package repository.entity;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;

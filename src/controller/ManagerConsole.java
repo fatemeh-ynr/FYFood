@@ -1,8 +1,8 @@
-package view;
+package controller;
 
-import data.dto.CustomerOrdersDto;
-import data.dto.RestaurantOrderDto;
-import data.entity.Manager;
+import repository.dto.CustomerOrdersDto;
+import repository.dto.RestaurantOrderDto;
+import repository.entity.Manager;
 import service.FoodOrderService;
 import service.RestaurantService;
 

@@ -1,9 +1,9 @@
 package service;
 
-import data.dao.FoodOrderDao;
-import data.dto.CustomerOrdersDto;
-import data.dto.RestaurantOrderDto;
-import data.entity.FoodOrder;
+import repository.dao.FoodOrderDao;
+import repository.dto.CustomerOrdersDto;
+import repository.dto.RestaurantOrderDto;
+import repository.entity.FoodOrder;
 
 import java.io.FileWriter;
 import java.io.IOException;

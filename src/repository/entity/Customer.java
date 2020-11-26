@@ -1,4 +1,4 @@
-package data.entity;
+package repository.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

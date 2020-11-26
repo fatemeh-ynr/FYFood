@@ -1,8 +1,8 @@
 package service;
 
-import data.dao.RestaurantDao;
-import data.entity.Food;
-import data.entity.Restaurant;
+import repository.dao.RestaurantDao;
+import repository.entity.Food;
+import repository.entity.Restaurant;
 
 import java.io.FileReader;
 import java.io.IOException;

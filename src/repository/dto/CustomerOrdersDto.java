@@ -1,6 +1,6 @@
-package data.dto;
+package repository.dto;
 
-import data.entity.Customer;
+import repository.entity.Customer;
 
 import java.time.LocalDate;
 

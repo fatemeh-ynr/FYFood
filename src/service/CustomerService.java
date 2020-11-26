@@ -1,7 +1,7 @@
 package service;
 
-import data.dao.CustomerDao;
-import data.entity.Customer;
+import repository.dao.CustomerDao;
+import repository.entity.Customer;
 
 public class CustomerService {
     CustomerDao customerDao = new CustomerDao();

@@ -1,8 +1,8 @@
-package data.dao;
+package repository.dao;
 
-import data.dto.CustomerOrdersDto;
-import data.dto.RestaurantOrderDto;
-import data.entity.FoodOrder;
+import repository.dto.CustomerOrdersDto;
+import repository.dto.RestaurantOrderDto;
+import repository.entity.FoodOrder;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

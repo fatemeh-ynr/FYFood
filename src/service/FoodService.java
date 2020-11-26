@@ -1,8 +1,8 @@
 package service;
 
-import data.dao.FoodDao;
-import data.entity.Food;
-import data.entity.Restaurant;
+import repository.dao.FoodDao;
+import repository.entity.Food;
+import repository.entity.Restaurant;
 
 import java.util.List;
 

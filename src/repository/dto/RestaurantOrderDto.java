@@ -1,4 +1,4 @@
-package data.dto;
+package repository.dto;
 
 public class RestaurantOrderDto {
     private String restaurantName;

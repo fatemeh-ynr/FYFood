@@ -1,4 +1,4 @@
-package data.entity;
+package repository.entity;
 
 public class Manager {
     String username;
