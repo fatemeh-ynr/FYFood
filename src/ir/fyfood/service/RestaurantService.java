@@ -1,17 +1,26 @@
-package service;
+package ir.fyfood.service;
 
-import repository.dao.RestaurantDao;
-import repository.entity.Food;
-import repository.entity.Restaurant;
+import ir.fyfood.repository.dao.RestaurantDao;
+import ir.fyfood.repository.entity.Food;
+import ir.fyfood.repository.entity.Restaurant;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
+@Service
 public class RestaurantService {
-    RestaurantDao restaurantDao = new RestaurantDao();
-    FoodService foodService = new FoodService();
+    RestaurantDao restaurantDao;
+    FoodService foodService;
+
+    @Autowired
+    public RestaurantService(RestaurantDao restaurantDao, FoodService foodService) {
+        this.restaurantDao = restaurantDao;
+        this.foodService = foodService;
+    }
 
     public void initializeDBFromFile(String path) {
         try (FileReader inf = new FileReader(path);
@@ -62,7 +71,7 @@ public class RestaurantService {
 
     //=====================================================================
     public List<Restaurant> getRestaurantWithFoodTypeAndArea(String type, int area) {
-        return restaurantDao.getRestauranInAreaWithSpecialFoodType(type, area);
+        return restaurantDao.getRestaurantWithFoodTypeAndArea(type, area);
     }
 
     //=====================================================================

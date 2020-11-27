@@ -1,13 +1,21 @@
-package service;
+package ir.fyfood.service;
 
-import repository.dao.FoodDao;
-import repository.entity.Food;
-import repository.entity.Restaurant;
+import ir.fyfood.repository.dao.FoodDao;
+import ir.fyfood.repository.entity.Food;
+import ir.fyfood.repository.entity.Restaurant;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FoodService {
-    FoodDao foodDao = new FoodDao();
+    FoodDao foodDao;
+
+    @Autowired
+    public FoodService(FoodDao foodDao) {
+        this.foodDao = foodDao;
+    }
 
     public boolean saveFood(Food food) {
         if (food.getPrice() >= 0)

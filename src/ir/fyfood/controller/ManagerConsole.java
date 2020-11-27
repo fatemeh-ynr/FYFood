@@ -1,25 +1,34 @@
-package controller;
+package ir.fyfood.controller;
 
-import repository.dto.CustomerOrdersDto;
-import repository.dto.RestaurantOrderDto;
-import repository.entity.Manager;
-import service.FoodOrderService;
-import service.RestaurantService;
+import ir.fyfood.repository.dto.CustomerOrdersDto;
+import ir.fyfood.repository.dto.RestaurantOrderDto;
+import ir.fyfood.repository.entity.Manager;
+import ir.fyfood.service.FoodOrderService;
+import ir.fyfood.service.RestaurantService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class ManagerConsole {
-    static FoodOrderService foodOrderService = new FoodOrderService();
-    static RestaurantService restaurantService = new RestaurantService();
+    FoodOrderService foodOrderService;
+    RestaurantService restaurantService;
 
-    public static void StartInteractingWithManager() {
+    @Autowired
+    public ManagerConsole(FoodOrderService foodOrderService, RestaurantService restaurantService) {
+        this.foodOrderService = foodOrderService;
+        this.restaurantService = restaurantService;
+    }
+
+    public void StartInteractingWithManager() {
         if (authenticateManager())
             showReportsMenu();
     }
 
     //=====================================================================
-    private static boolean authenticateManager() {
+    private boolean authenticateManager() {
         int numberOfInvalidInput = 0;
         Manager manager = new Manager();
         while (numberOfInvalidInput < 3) {
@@ -36,7 +45,7 @@ public class ManagerConsole {
     }
 
     //=====================================================================
-    private static void showReportsMenu() {
+    private void showReportsMenu() {
 
         while (true) {
             System.out.println("\n1.Report of customers");
@@ -59,7 +68,7 @@ public class ManagerConsole {
     }
 
     //=====================================================================
-    private static void showCustomersReport() {
+    private void showCustomersReport() {
         foodOrderService.getCustomersAndTheirTotalAmountOfPaymentsInRecentYear();
         List<CustomerOrdersDto> customersList1, customersList2, customersList3;
 
@@ -93,7 +102,7 @@ public class ManagerConsole {
     }
 
     //=====================================================================
-    private static void showRestaurantsReport() {
+    private void showRestaurantsReport() {
         foodOrderService.getRestaurantsAndTheirTotalCourierFeeValue();
         Map<String, List<String>> bestSellingFoods = foodOrderService.getTheBestSellingFoodOfEachRestaurant();
 

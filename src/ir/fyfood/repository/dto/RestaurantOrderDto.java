@@ -1,5 +1,8 @@
-package repository.dto;
+package ir.fyfood.repository.dto;
 
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class RestaurantOrderDto {
     private String restaurantName;
     private double sumOfCourierFees;

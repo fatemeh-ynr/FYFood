@@ -1,10 +1,18 @@
-package service;
+package ir.fyfood.service;
 
-import repository.dao.CustomerDao;
-import repository.entity.Customer;
+import ir.fyfood.repository.dao.CustomerDao;
+import ir.fyfood.repository.entity.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CustomerService {
-    CustomerDao customerDao = new CustomerDao();
+    CustomerDao customerDao;
+
+    @Autowired
+    public CustomerService(CustomerDao customerDao) {
+        this.customerDao = customerDao;
+    }
 
     public boolean saveCustomer(Customer customer) {
         if (mobileNumberIsValid(customer.getMobileNumber()) && postalCodeIsValid(customer.getPostalCode())) {

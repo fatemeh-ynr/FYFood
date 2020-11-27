@@ -15,10 +15,10 @@
         <property name="hibernate.format_sql">false</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <mapping class="repository.entity.Restaurant"/>
-        <mapping class="repository.entity.Food"/>
-        <mapping class="repository.entity.Customer"/>
-        <mapping class="repository.entity.FoodOrder"/>
+        <mapping class="ir.fyfood.repository.entity.Restaurant"/>
+        <mapping class="ir.fyfood.repository.entity.Food"/>
+        <mapping class="ir.fyfood.repository.entity.Customer"/>
+        <mapping class="ir.fyfood.repository.entity.FoodOrder"/>
 
     </session-factory>
 </hibernate-configuration>

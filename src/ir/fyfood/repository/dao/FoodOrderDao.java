@@ -1,8 +1,8 @@
-package repository.dao;
+package ir.fyfood.repository.dao;
 
-import repository.dto.CustomerOrdersDto;
-import repository.dto.RestaurantOrderDto;
-import repository.entity.FoodOrder;
+import ir.fyfood.repository.dto.CustomerOrdersDto;
+import ir.fyfood.repository.dto.RestaurantOrderDto;
+import ir.fyfood.repository.entity.FoodOrder;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +13,7 @@ import org.hibernate.query.Query;
 import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.PersistenceException;
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class FoodOrderDao {
     SessionFactory sessionFactory = DatabaseConnection.getSessionFactory();
     Logger logger = LoggerFactory.getLogger(FoodDao.class);

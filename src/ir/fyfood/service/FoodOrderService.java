@@ -1,9 +1,12 @@
-package service;
+package ir.fyfood.service;
 
-import repository.dao.FoodOrderDao;
-import repository.dto.CustomerOrdersDto;
-import repository.dto.RestaurantOrderDto;
-import repository.entity.FoodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import ir.fyfood.repository.dao.FoodOrderDao;
+import ir.fyfood.repository.dto.CustomerOrdersDto;
+import ir.fyfood.repository.dto.RestaurantOrderDto;
+import ir.fyfood.repository.entity.FoodOrder;
+import org.springframework.stereotype.Service;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,11 +14,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Service
 public class FoodOrderService {
-    FoodOrderDao orderDao = new FoodOrderDao();
+    FoodOrderDao orderDao;
     static List<CustomerOrdersDto> customers;
     static List<RestaurantOrderDto> restaurants;
 
+    @Autowired
+    public FoodOrderService(FoodOrderDao orderDao) {
+        this.orderDao = orderDao;
+    }
+
+    //=====================================================================
     public boolean saveOrder(FoodOrder order) {
         if (orderDao.saveOrder(order)) {
             saveOrderInFile(order);

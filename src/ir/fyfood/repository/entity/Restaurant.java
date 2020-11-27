@@ -1,4 +1,4 @@
-package repository.entity;
+package ir.fyfood.repository.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

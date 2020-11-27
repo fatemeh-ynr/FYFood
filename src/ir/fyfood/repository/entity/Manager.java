@@ -1,16 +1,11 @@
-package repository.entity;
+package ir.fyfood.repository.entity;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Manager {
     String username;
     String password;
-
-    public Manager(String username, String password) {
-        this.username = username;
-        this.password = password;
-    }
-
-    public Manager() {
-    }
 
     public String getUsername() {
         return username;

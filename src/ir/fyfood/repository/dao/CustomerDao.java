@@ -1,14 +1,16 @@
-package repository.dao;
+package ir.fyfood.repository.dao;
 
-import repository.entity.Customer;
+import ir.fyfood.repository.entity.Customer;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.PersistenceException;
 
+@Repository
 public class CustomerDao {
     SessionFactory sessionFactory = DatabaseConnection.getSessionFactory();
     static Logger logger = LoggerFactory.getLogger(CustomerDao.class);

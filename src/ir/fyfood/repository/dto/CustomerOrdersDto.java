@@ -1,9 +1,11 @@
-package repository.dto;
+package ir.fyfood.repository.dto;
 
-import repository.entity.Customer;
+import ir.fyfood.repository.entity.Customer;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 
+@Repository
 public class CustomerOrdersDto {
     private Customer customer;
     private double sumOfPayments;

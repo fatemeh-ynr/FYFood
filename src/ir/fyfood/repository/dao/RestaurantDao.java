@@ -1,6 +1,6 @@
-package repository.dao;
+package ir.fyfood.repository.dao;
 
-import repository.entity.Restaurant;
+import ir.fyfood.repository.entity.Restaurant;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -10,10 +10,12 @@ import org.hibernate.query.Query;
 import org.hibernate.transform.DistinctRootEntityResultTransformer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.PersistenceException;
 import java.util.List;
 
+@Repository
 public class RestaurantDao {
     SessionFactory sessionFactory = DatabaseConnection.getSessionFactory();
     Logger logger = LoggerFactory.getLogger(RestaurantDao.class);
@@ -36,7 +38,7 @@ public class RestaurantDao {
     }
 
     //=====================================================================
-    public List<Restaurant> getRestauranInAreaWithSpecialFoodType(String type, int area) {
+    public List<Restaurant> getRestaurantWithFoodTypeAndArea(String type, int area) {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         Criteria restaurantCriteria = session.createCriteria(Restaurant.class);

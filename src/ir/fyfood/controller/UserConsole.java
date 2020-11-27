@@ -1,31 +1,42 @@
-package controller;
+package ir.fyfood.controller;
 
-import repository.entity.Customer;
-import repository.entity.FoodOrder;
-import repository.entity.Restaurant;
-import service.CustomerService;
-import service.FoodOrderService;
-import service.FoodService;
-import service.RestaurantService;
+import ir.fyfood.repository.entity.Customer;
+import ir.fyfood.repository.entity.FoodOrder;
+import ir.fyfood.repository.entity.Restaurant;
+import ir.fyfood.service.CustomerService;
+import ir.fyfood.service.FoodOrderService;
+import ir.fyfood.service.FoodService;
+import ir.fyfood.service.RestaurantService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Component
 public class UserConsole {
-    static CustomerService customerService = new CustomerService();
-    static FoodService foodService = new FoodService();
-    static RestaurantService restaurantService = new RestaurantService();
-    static FoodOrderService orderService = new FoodOrderService();
-    static Customer customer;
+    private CustomerService customerService;
+    private FoodService foodService;
+    private RestaurantService restaurantService;
+    private FoodOrderService orderService;
+    private Customer customer = new Customer();
 
-    public static void StartInteractingWithUser() {
+    @Autowired
+    public UserConsole(CustomerService customerService, FoodService foodService, RestaurantService restaurantService, FoodOrderService orderService) {
+        this.customerService = customerService;
+        this.foodService = foodService;
+        this.restaurantService = restaurantService;
+        this.orderService = orderService;
+    }
+
+    public void StartInteractingWithUser() {
         customer = getLoggedInCustomer();
         int area = ScannerReaders.readInt("enter your area: ");
         showFoodTypesMenu(area);
     }
 
     //=====================================================================
-    public static Customer getLoggedInCustomer() {
+    private Customer getLoggedInCustomer() {
         Customer customer;
         while (true) {
             String mobileNumber = ScannerReaders.readNumber("enter your phone number: ");
@@ -39,7 +50,7 @@ public class UserConsole {
     }
 
     //=====================================================================
-    public static void showFoodTypesMenu(int area) {
+    private void showFoodTypesMenu(int area) {
         List<String> foodTypes = foodService.getFoodTypes();
         if (foodTypes != null)
             foodTypes.add("all types");
@@ -67,7 +78,7 @@ public class UserConsole {
     }
 
     //=====================================================================
-    public static boolean showRestaurantMenu(String selectedFoodType, int area) {
+    private boolean showRestaurantMenu(String selectedFoodType, int area) {
         while (true) {
             List<Restaurant> restaurants = restaurantService.getRestaurantWithFoodTypeAndArea(selectedFoodType, area);
 
@@ -95,7 +106,7 @@ public class UserConsole {
     }
 
     //=====================================================================
-    public static boolean showFoodMenu(Restaurant restaurant) {
+    private boolean showFoodMenu(Restaurant restaurant) {
         restaurant.addFoods(foodService.getFoodListOfRestaurant(restaurant));
         if (restaurant.hasNoFood()) {
             System.out.println("\nNo food is available in this restaurant \"" + restaurant.getName() + "\" right now.");
@@ -115,7 +126,7 @@ public class UserConsole {
     }
 
     //=====================================================================
-    public static FoodOrder createOrder(Restaurant restaurant) {
+    private FoodOrder createOrder(Restaurant restaurant) {
         int foodIndex, foodNumber, options = 1;
         FoodOrder order = new FoodOrder(customer);
         order.setRestaurant(restaurant);
@@ -151,7 +162,7 @@ public class UserConsole {
     }
 
     //=====================================================================
-    private static boolean saveOrder(FoodOrder order) {
+    private boolean saveOrder(FoodOrder order) {
         if (order.getTotalPrice() != 0) {
 
             boolean successfulSignIn = signInOrLogIn();
@@ -167,7 +178,7 @@ public class UserConsole {
     }
 
     //=====================================================================
-    public static boolean signInOrLogIn() {
+    private boolean signInOrLogIn() {
         if (customer.isNew()) {
             System.out.println("\n complete your information:");
             customer.setName(ScannerReaders.readStringWord("enter your name: "));
