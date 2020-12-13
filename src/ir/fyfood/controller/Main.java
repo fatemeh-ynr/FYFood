@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) {
         applicationContext = new AnnotationConfigApplicationContext(SpringContext.class);
 
-        databaseSetup();
+        //databaseSetup();
         showInputMenu();
     }
 

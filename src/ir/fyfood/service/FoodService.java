@@ -18,8 +18,10 @@ public class FoodService {
     }
 
     public boolean saveFood(Food food) {
-        if (food.getPrice() >= 0)
-            return foodDao.saveFood(food);
+        if (food.getPrice() >= 0) {
+            foodDao.save(food);
+            return true;
+        }
         return false;
     }
 

@@ -53,6 +53,7 @@ public class RestaurantDao {
     }
 
     //=====================================================================
+    //@org.springframework.data.jpa.repository.Query("select distinct restaurant.serviceArea from Restaurant restaurant")
     public List<Integer> getAllServiceArea() {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

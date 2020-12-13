@@ -16,7 +16,8 @@ public class CustomerService {
 
     public boolean saveCustomer(Customer customer) {
         if (mobileNumberIsValid(customer.getMobileNumber()) && postalCodeIsValid(customer.getPostalCode())) {
-            return customerDao.saveCustomer(customer);
+            customerDao.save(customer);
+            return true;
         }
         return false;
     }
@@ -24,7 +25,7 @@ public class CustomerService {
     //=====================================================================
     public Customer getCustomer(String mobileNumber) {
         if (mobileNumberIsValid(mobileNumber)) {
-            Customer customer = customerDao.findCustomer(mobileNumber);
+            Customer customer = customerDao.findByMobileNumber(mobileNumber);
             if (customer == null) {
                 customer = new Customer(mobileNumber);
             }

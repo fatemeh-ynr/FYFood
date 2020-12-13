@@ -64,7 +64,8 @@ public class RestaurantService {
     //=====================================================================
     public boolean saveRestaurant(Restaurant restaurant) {
         if (restaurant.getServiceArea() > 0 && restaurant.getCourierFee() >= 0) {
-            return restaurantDao.saveRestaurant(restaurant);
+            restaurantDao.saveRestaurant(restaurant);
+            return true;
         }
         return false;
     }

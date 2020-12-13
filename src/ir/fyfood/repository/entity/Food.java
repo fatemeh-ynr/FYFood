@@ -2,6 +2,7 @@ package ir.fyfood.repository.entity;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import java.util.Objects;
 
 @Entity
 public class Food {
@@ -56,4 +57,5 @@ public class Food {
     public String toString() {
         return "name=" + foodId.getName() + ", price=" + price + ", type=" + type;
     }
+
 }

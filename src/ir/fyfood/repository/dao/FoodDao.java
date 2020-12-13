@@ -2,62 +2,23 @@ package ir.fyfood.repository.dao;
 
 import ir.fyfood.repository.entity.Food;
 import ir.fyfood.repository.entity.Restaurant;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class FoodDao {
-    SessionFactory sessionFactory = DatabaseConnection.getSessionFactory();
-    Logger logger = LoggerFactory.getLogger(FoodDao.class);
+public interface FoodDao extends JpaRepository<Food, Integer> {
 
-    public boolean saveFood(Food food) {
-        boolean success;
-        Session session = sessionFactory.openSession();
-        try {
-            Transaction transaction = session.beginTransaction();
-            session.save(food);
-            transaction.commit();
-            success = true;
-            logger.info("Insert food information to \"food\" table: \"" + food.getName() + "\" from restaurant \"" + food.getRestaurant() + "\"");
-        } catch (PersistenceException ex) {
-            success = false;
-            logger.info("Cannot Insert food information to \"food\" table: \"" + food.getName() + "\" from restaurant \"" + food.getRestaurant() + "\"");
-        }
-        session.close();
-        return success;
-    }
+    @Query("select distinct type from Food ")
+    List<String> getFoodTypes();
 
-    //=====================================================================
-    public List<String> getFoodTypes() {
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("select distinct type from Food ");
-        List<String> types = query.getResultList();
-        transaction.commit();
-        session.close();
-        return types;
-    }
-
-    //=====================================================================
-    public List<Food> getFoodListOfRestaurant(Restaurant restaurant) {
-        List<Food> foods = new ArrayList<>();
-        Session session = sessionFactory.openSession();
-        Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("from Food food where food.foodId.restaurant=:restaurantName");
-        query.setParameter("restaurantName", restaurant.getName());
-        transaction.commit();
-        session.close();
-        return foods;
-    }
+    @Query("select DISTINCT food from Food food left join food.foodId.restaurant where food.foodId.restaurant=:restaurantName")
+    List<Food> getFoodListOfRestaurant(@Param("restaurantName") Restaurant restaurant);
+    //return duplicate row!!!
+    //List<Food> findDistinctByFoodId_Restaurant(Restaurant restaurant);
 
 
 }
