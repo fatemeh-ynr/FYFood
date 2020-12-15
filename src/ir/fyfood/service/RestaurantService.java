@@ -5,7 +5,6 @@ import ir.fyfood.repository.entity.Food;
 import ir.fyfood.repository.entity.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
@@ -64,7 +63,7 @@ public class RestaurantService {
     //=====================================================================
     public boolean saveRestaurant(Restaurant restaurant) {
         if (restaurant.getServiceArea() > 0 && restaurant.getCourierFee() >= 0) {
-            restaurantDao.saveRestaurant(restaurant);
+            restaurantDao.save(restaurant);
             return true;
         }
         return false;
@@ -72,7 +71,7 @@ public class RestaurantService {
 
     //=====================================================================
     public List<Restaurant> getRestaurantWithFoodTypeAndArea(String type, int area) {
-        return restaurantDao.getRestaurantWithFoodTypeAndArea(type, area);
+        return restaurantDao.findAll(RestaurantDao.findBy(type, area));
     }
 
     //=====================================================================

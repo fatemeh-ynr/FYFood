@@ -1,5 +1,6 @@
 package ir.fyfood.repository.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;

@@ -1,15 +1,17 @@
 package ir.fyfood.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import ir.fyfood.repository.dao.FoodOrderDao;
 import ir.fyfood.repository.dto.CustomerOrdersDto;
 import ir.fyfood.repository.dto.RestaurantOrderDto;
+import ir.fyfood.repository.entity.Customer;
 import ir.fyfood.repository.entity.FoodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -27,7 +29,8 @@ public class FoodOrderService {
 
     //=====================================================================
     public boolean saveOrder(FoodOrder order) {
-        if (orderDao.saveOrder(order)) {
+        FoodOrder savedOrder = orderDao.save(order);
+        if (savedOrder != null) {
             saveOrderInFile(order);
             return true;
         }
@@ -49,7 +52,16 @@ public class FoodOrderService {
 
     //=====================================================================
     public void getCustomersAndTheirTotalAmountOfPaymentsInRecentYear() {
-        customers = orderDao.getCustomersAndTheirTotalAmountOfPaymentsInRecentYear();
+        //customers = orderDao.getCustomersAndTheirTotalAmountOfPaymentsInRecentYear();
+        List<Object[]> result = orderDao.getCustomersAndTheirTotalAmountOfPaymentsInRecentYear();
+        customers = new ArrayList<>();
+        for(int i=0; i<result.size(); i++){
+            CustomerOrdersDto customerDto = new CustomerOrdersDto();
+            customerDto.setCustomer((Customer) result.get(i)[0]);
+            customerDto.setSumOfPayments((Long) result.get(i)[1]);
+            customerDto.setOrderDate((LocalDate) result.get(i)[2]);
+            customers.add(customerDto);
+        }
     }
 
     public static List<CustomerOrdersDto> getFilteredCustomerReport(int registrationMonth, int minTotalOrdersValue, int maxTotalOrdersValue) {

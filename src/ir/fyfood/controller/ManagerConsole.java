@@ -2,7 +2,6 @@ package ir.fyfood.controller;
 
 import ir.fyfood.repository.dto.CustomerOrdersDto;
 import ir.fyfood.repository.dto.RestaurantOrderDto;
-import ir.fyfood.repository.entity.Manager;
 import ir.fyfood.service.FoodOrderService;
 import ir.fyfood.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,26 +22,9 @@ public class ManagerConsole {
     }
 
     public void StartInteractingWithManager() {
-        if (authenticateManager())
             showReportsMenu();
     }
 
-    //=====================================================================
-    private boolean authenticateManager() {
-        int numberOfInvalidInput = 0;
-        Manager manager = new Manager();
-        while (numberOfInvalidInput < 3) {
-            manager.setUsername(ScannerReaders.readStringWord("\nusername:"));
-            manager.setPassword(ScannerReaders.readStringWord("password:"));
-
-            if (manager.getUsername().compareTo("manager") == 0 && manager.getPassword().compareTo("123") == 0) {
-                System.out.println("Valid username or password!");
-                return true;
-            }
-            System.out.println("Invalid username and password...");
-        }
-        return false;
-    }
 
     //=====================================================================
     private void showReportsMenu() {
@@ -72,6 +54,7 @@ public class ManagerConsole {
         foodOrderService.getCustomersAndTheirTotalAmountOfPaymentsInRecentYear();
         List<CustomerOrdersDto> customersList1, customersList2, customersList3;
 
+        System.out.println("\nMonth\tSumOfPayments(100Tomans)\tName\tMobileNumber ");
         for (int registrationMonth = 1; registrationMonth <= 12; registrationMonth++) {
 
             customersList1 = foodOrderService.getFilteredCustomerReport(registrationMonth, 0, 100000);
@@ -79,26 +62,28 @@ public class ManagerConsole {
             customersList3 = foodOrderService.getFilteredCustomerReport(registrationMonth, 500000, Integer.MAX_VALUE);
 
             if (!customersList1.isEmpty() || !customersList2.isEmpty() || !customersList3.isEmpty()) {
-                System.out.println("=================================");
-                System.out.println("Month:" + registrationMonth);
+                System.out.println("==========================================================");
+                System.out.println(" " + registrationMonth);
+
+                System.out.println("\t\t\tless than 100");
                 if (!customersList1.isEmpty()) {
-                    System.out.println("---------------------");
-                    System.out.println("Total orders value: less than 100,000 Tomans");
                     customersList1.forEach(System.out::println);
                 }
+
+                System.out.println("\t\t\t---------------------------------------------");
+                System.out.println("\t\t\tbetween 100-500 ");
                 if (!customersList2.isEmpty()) {
-                    System.out.println("---------------------");
-                    System.out.println("Total orders value: between 100,000-500,000 Tomans");
                     customersList2.forEach(System.out::println);
                 }
+
+                System.out.println("\t\t\t---------------------------------------------");
+                System.out.println("\t\t\tmore than 500");
                 if (!customersList3.isEmpty()) {
-                    System.out.println("---------------------");
-                    System.out.println("Total orders value: more than 500,000 Tomans");
                     customersList3.forEach(System.out::println);
                 }
             }
         }
-        System.out.println("========================================");
+        System.out.println("==========================================================");
     }
 
     //=====================================================================

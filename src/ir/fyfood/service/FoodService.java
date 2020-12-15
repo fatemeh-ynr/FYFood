@@ -31,6 +31,6 @@ public class FoodService {
 
 
     public List<Food> getFoodListOfRestaurant(Restaurant restaurant){
-        return foodDao.getFoodListOfRestaurant(restaurant);
+        return foodDao.findDistinctByFoodId_Restaurant(restaurant);
     }
 }

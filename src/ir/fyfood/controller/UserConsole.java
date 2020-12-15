@@ -66,7 +66,7 @@ public class UserConsole {
             foodTypes.set(foodTypes.size() - 1, null); //type="all type"--> null
             String selectedFoodType = foodTypes.get(selectedFoodTypeIndex - 1);
 
-            boolean successfulOrdering = showRestaurantMenu(selectedFoodType, area);
+            boolean successfulOrdering = showRestaurantList(selectedFoodType, area);
 
             if (successfulOrdering) {
                 int option = ScannerReaders.readInt("\nenter 0 to exit 1 to continue: ", 0, 1);
@@ -78,7 +78,7 @@ public class UserConsole {
     }
 
     //=====================================================================
-    private boolean showRestaurantMenu(String selectedFoodType, int area) {
+    private boolean showRestaurantList(String selectedFoodType, int area) {
         while (true) {
             List<Restaurant> restaurants = restaurantService.getRestaurantWithFoodTypeAndArea(selectedFoodType, area);
 
@@ -99,14 +99,14 @@ public class UserConsole {
 
             int restaurantIndex = ScannerReaders.readInt("\nselect restaurant number: ", 1, restaurants.size());
             Restaurant restaurant = restaurants.get(restaurantIndex - 1);
-            boolean successfulOrdering = showFoodMenu(restaurant);
+            boolean successfulOrdering = showFoodList(restaurant);
             if (successfulOrdering)
                 return true;
         }
     }
 
     //=====================================================================
-    private boolean showFoodMenu(Restaurant restaurant) {
+    private boolean showFoodList(Restaurant restaurant) {
         restaurant.addFoods(foodService.getFoodListOfRestaurant(restaurant));
         if (restaurant.hasNoFood()) {
             System.out.println("\nNo food is available in this restaurant \"" + restaurant.getName() + "\" right now.");

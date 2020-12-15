@@ -1,6 +1,7 @@
 package ir.fyfood.repository.dto;
 
 import ir.fyfood.repository.entity.Customer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -8,8 +9,17 @@ import java.time.LocalDate;
 @Repository
 public class CustomerOrdersDto {
     private Customer customer;
-    private double sumOfPayments;
+    private long sumOfPayments;
     private LocalDate orderDate;
+
+    public CustomerOrdersDto(Customer customer, long sumOfPayments, LocalDate orderDate) {
+        this.customer = customer;
+        this.sumOfPayments = sumOfPayments;
+        this.orderDate = orderDate;
+    }
+
+    public CustomerOrdersDto() {
+    }
 
     public LocalDate getOrderDate() {
         return orderDate;
@@ -27,20 +37,21 @@ public class CustomerOrdersDto {
         this.customer = customer;
     }
 
-    public double getSumOfPayments() {
+    public long getSumOfPayments() {
         return sumOfPayments;
     }
 
-    public void setSumOfPayments(double sumOfPayments) {
+    public void setSumOfPayments(long sumOfPayments) {
         this.sumOfPayments = sumOfPayments;
     }
 
     @Override
     public String toString() {
-        String result = "totalAmountOfPayments=" + (int) sumOfPayments + ", ";
+        String result ="\t\t\t\t\t\t\t\t\t";
         if (this.customer != null) {
-            result += "name=" + customer.getName() + ", ";
-            result += "mobileNumber=" + customer.getMobileNumber();
+            result += customer.getName() + "\t\t";
+            result += customer.getMobileNumber();
+
         }
         return result;
     }

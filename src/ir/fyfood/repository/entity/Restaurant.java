@@ -1,8 +1,6 @@
 package ir.fyfood.repository.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +10,7 @@ public class Restaurant {
     private String name;
     private int serviceArea;
     private int courierFee;
-    @OneToMany(mappedBy = "foodId.restaurant")
+    @OneToMany(mappedBy = "foodId.restaurant", fetch= FetchType.EAGER)
     private List<Food> foodsList = new ArrayList<>();
 
     public Restaurant() {
